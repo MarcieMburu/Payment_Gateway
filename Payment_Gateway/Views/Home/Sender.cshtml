@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    ViewBag.Title = "Transaction";
+    Layout = "~/css/styles.css";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+
+
+    <title>Complete your Transaction</title>
+</head>
+<body>
+
+    <header>
+        <h1 class="logo">Payment Gateway</h1>
+        <ul class="menu-container">
+            <li class="menu-item">Home</li>
+            <li class="menu-item">Transactions</li>
+            <li class="menu-item">Products</li>
+
+        </ul>
+        <div class="menu-icons-container">
+            <div class="progress-step-container">
+                <div style="padding-right: 20px;"><i class="fas fa-user"></i></div>
+            </div><i class="fas fa-search"></i>
+        </div>
+        </div>
+        </div>
+    </header>
+
+
+    <div class="progress-checkout-container">
+        <div class="progress-step-container">
+            <div class="step-check"></div>
+            <span class="step-title">Remmiter Details</span>
+        </div>
+        <div class="progress-step-container">
+            <div class="step-check"></div>
+            <span class="step-title">Receiver Details</span>
+        </div>
+        <div class="progress-step-container">
+            <div class="step-check"></div>
+            <span class="step-title">Transaction Details</span>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2 class="form-title">Remmiter Details</h2>
+        <form action="" class="checkout-form">
+            <div class="input-line">
+                <label for="name">Full Names</label>
+                <input type="text" name="name" id="name" placeholder="Your name and surname">
+            </div>
+            <div class="input-line">
+                <label for="name">ID number</label>
+                <input type="text" name="name" id="name" placeholder="1111-2222-3333-4444">
+            </div>
+            <div class="input-container">
+                <div class="input-line">
+                    <label for="name">Phone Number</label>
+                    <input type="text" name="name" id="name" placeholder="09-21">
+                </div>
+                <div class="input-line">
+                    <label for="name">Source Account</label>
+                    <input type="text" name="name" id="name" placeholder="***">
+                </div>
+            </div>
+
+            <input type="button" value="Next ">
+        </form>
+    </div>
+
+</body>
+</html>

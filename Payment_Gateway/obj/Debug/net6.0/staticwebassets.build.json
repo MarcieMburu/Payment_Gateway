@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6Mz885Y6y1AFyv325vvrAmR/H8wVFZjXVQv7ZpyjnTs=",
+  "Hash": "BaitGBtaD1+UFFDvvlSv5Z+rAK4Xq7hE2CXMmzYvJII=",
   "Source": "Payment_Gateway",
   "BasePath": "_content/Payment_Gateway",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\Paul\\source\\repos\\Payment_Gateway\\Payment_Gateway\\wwwroot\\css\\styles.css",
+      "SourceId": "Payment_Gateway",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Paul\\source\\repos\\Payment_Gateway\\Payment_Gateway\\wwwroot\\",
+      "BasePath": "_content/Payment_Gateway",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
       "Identity": "C:\\Users\\Paul\\source\\repos\\Payment_Gateway\\Payment_Gateway\\wwwroot\\favicon.ico",
