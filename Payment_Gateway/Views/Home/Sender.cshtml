@@ -4,7 +4,7 @@
 @{
 
     ViewBag.Title = "Transaction";
-    Layout = "~/css/styles.css";
+   
 }
 <!DOCTYPE html>
 <html>
@@ -13,46 +13,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 
-
-    <title>Complete your Transaction</title>
 </head>
 <body>
-
-    <header>
-        <h1 class="logo">Payment Gateway</h1>
-        <ul class="menu-container">
-            <li class="menu-item">Home</li>
-            <li class="menu-item">Transactions</li>
-            <li class="menu-item">Products</li>
-
-        </ul>
-        <div class="menu-icons-container">
-            <div class="progress-step-container">
-                <div style="padding-right: 20px;"><i class="fas fa-user"></i></div>
-            </div><i class="fas fa-search"></i>
-        </div>
-        </div>
-        </div>
-    </header>
-
-
-    <div class="progress-checkout-container">
-        <div class="progress-step-container">
-            <div class="step-check"></div>
-            <span class="step-title">Remmiter Details</span>
-        </div>
-        <div class="progress-step-container">
-            <div class="step-check"></div>
-            <span class="step-title">Receiver Details</span>
-        </div>
-        <div class="progress-step-container">
-            <div class="step-check"></div>
-            <span class="step-title">Transaction Details</span>
-        </div>
-    </div>
 
     <div class="form-container">
         <h2 class="form-title">Remmiter Details</h2>
@@ -63,12 +28,12 @@
             </div>
             <div class="input-line">
                 <label for="name">ID number</label>
-                <input type="text" name="name" id="name" placeholder="1111-2222-3333-4444">
+                <input type="text" name="name" id="name" placeholder="12345678">
             </div>
             <div class="input-container">
                 <div class="input-line">
                     <label for="name">Phone Number</label>
-                    <input type="text" name="name" id="name" placeholder="09-21">
+                    <input type="text" name="name" id="name" placeholder="0712345678">
                 </div>
                 <div class="input-line">
                     <label for="name">Source Account</label>

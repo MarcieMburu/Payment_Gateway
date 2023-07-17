@@ -1,14 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Payment_Gateway.Data;
+using Payment_Gateway.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Payment_GatewayContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Payment_GatewayContext") ?? throw new InvalidOperationException("Connection string 'Payment_GatewayContext' not found.")));
+  options.UseSqlServer(builder.Configuration.GetConnectionString("Payment_GatewayContext") ?? throw new InvalidOperationException("Connection string 'Payment_GatewayContext' not found.")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
