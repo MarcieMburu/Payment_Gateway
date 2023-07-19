@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Payment_Gateway.Data;
 
 #nullable disable
 
@@ -21,56 +20,6 @@ namespace Payment_Gateway.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Payment_Gateway.Models.Receiver", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Rec_Dst_Acc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rec_ID_NO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Rec_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rec_Phone")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Receiver");
-                });
-
-            modelBuilder.Entity("Payment_Gateway.Models.Sender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Sen_ID_NO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sen_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sen_Phone")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sen_Src_Acc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sender");
-                });
-
             modelBuilder.Entity("Payment_Gateway.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
@@ -87,7 +36,74 @@ namespace Payment_Gateway.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("Payment_Gateway.Models.Transaction", b =>
+                {
+                    b.OwnsOne("Payment_Gateway.Models.Receiver", "Receiver", b1 =>
+                        {
+                            b1.Property<int>("TransactionId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Dst_Acc")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("ID_NO")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Phone")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("TransactionId");
+
+                            b1.ToTable("Transactions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TransactionId");
+                        });
+
+                    b.OwnsOne("Payment_Gateway.Models.Sender", "Sender", b1 =>
+                        {
+                            b1.Property<int>("TransactionId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ID_NO")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Phone")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Src_Acc")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("TransactionId");
+
+                            b1.ToTable("Transactions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TransactionId");
+                        });
+
+                    b.Navigation("Receiver")
+                        .IsRequired();
+
+                    b.Navigation("Sender")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

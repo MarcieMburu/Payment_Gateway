@@ -22,6 +22,33 @@ namespace Payment_Gateway.Controllers
         {
             return View();
         }
+        
+        public IActionResult Transaction()
+        {
+            return View();
+        }
+        public IActionResult Profile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult GetDetails()
+        {
+            UserDataModel umodel = new UserDataModel();
+            umodel.Name = HttpContext.Request.Form["txtName"].ToString();
+            umodel.Age = Convert.ToInt32(HttpContext.Request.Form["txtAge"]);
+            umodel.City = HttpContext.Request.Form["txtCity"].ToString();
+            int result = umodel.SaveDetails();
+            if (result > 0)
+            {
+                ViewBag.Result = "Data Saved Successfully";
+            }
+            else
+            {
+                ViewBag.Result = "Something Went Wrong";
+            }
+            return View("Profile");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
