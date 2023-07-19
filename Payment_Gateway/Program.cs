@@ -1,25 +1,28 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Payment_Gateway.Data;
+using Payment_Gateway;
 using Payment_Gateway.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Payment_GatewayContext>(options =>
-  options.UseSqlServer(builder.Configuration.GetConnectionString("Payment_GatewayContext") ?? throw new InvalidOperationException("Connection string 'Payment_GatewayContext' not found.")));
+IServiceCollection serviceCollection = builder.Services.AddDbContext<Payment_GatewayContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PaymentGateway") ?? throw new InvalidOperationException("Connection string 'Payment_GatewayContext' not found.")));
 
+IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory) // Sets the base path where the appsettings.json is located
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true) // Loads appsettings.json
+            .Build();
+
+string connectionString = configuration.GetConnectionString("PaymentGateway");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
+//DI for DbContext
+builder.Services.AddDbContext<Payment_GatewayContext>();
 
-    SeedData.Initialize(services);
-}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -41,3 +44,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Payment_Gateway.Migrations
 {
     [DbContext(typeof(Payment_GatewayContext))]
-    partial class Payment_GatewayContextModelSnapshot : ModelSnapshot
+    [Migration("20230718065703_DBContextChange")]
+    partial class DBContextChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,6 +21,35 @@ namespace Payment_Gateway.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Payment_Gateway.Models.Receiver", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Rec_Dst_Acc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rec_ID_NO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rec_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rec_Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Receiver");
+                });
 
             modelBuilder.Entity("Payment_Gateway.Models.Transaction", b =>
                 {
@@ -31,44 +62,26 @@ namespace Payment_Gateway.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
+                    b.Property<int>("ReceiverId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
 
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Payment_Gateway.Models.Transaction", b =>
                 {
-                    b.OwnsOne("Payment_Gateway.Models.Receiver", "Receiver", b1 =>
-                        {
-                            b1.Property<int>("TransactionId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Dst_Acc")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("ID_NO")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Phone")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("TransactionId");
-
-                            b1.ToTable("Transactions");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TransactionId");
-                        });
+                    b.HasOne("Payment_Gateway.Models.Receiver", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("Payment_Gateway.Models.Sender", "Sender", b1 =>
                         {
@@ -78,6 +91,9 @@ namespace Payment_Gateway.Migrations
                             b1.Property<string>("ID_NO")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("Id")
+                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
@@ -99,8 +115,7 @@ namespace Payment_Gateway.Migrations
                                 .HasForeignKey("TransactionId");
                         });
 
-                    b.Navigation("Receiver")
-                        .IsRequired();
+                    b.Navigation("Receiver");
 
                     b.Navigation("Sender")
                         .IsRequired();
